@@ -56,7 +56,7 @@ stages:
     displayName: Deploy
     pool:
       vmImage: $(vmImageName)
-    environment: 'slamb2kContainerOps-1061.default'
+    environment: 'slamb2kContainerOps-webapp'
     strategy:
       runOnce:
         deploy:
