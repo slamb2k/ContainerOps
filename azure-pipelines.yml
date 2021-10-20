@@ -46,8 +46,8 @@ stages:
     - upload: manifests
       artifact: manifests
 
-- stage: DeployTest
-  displayName: Deploy Test stage
+- stage: TestStage
+  displayName: Test stage
   dependsOn: Build
 
   jobs:
@@ -73,8 +73,8 @@ stages:
 
 
 
-- stage: DeployProd
-  displayName: Deploy Prod stage
+- stage: ProdStage
+  displayName: Prod stage
   dependsOn: DeployTest
 
   jobs:
