@@ -15,7 +15,7 @@ variables:
   imageRepository: 'containerops'
   containerRegistry: 'slambcontainerregistry.azurecr.io'
   dockerfilePath: '**/Dockerfile'
-  tag: $(Build.BuildId)'
+  tag: '$(Build.BuildId)'
   imagePullSecret: 'slambcontainerregistry8ba4-auth'
 
   # Agent VM image name
