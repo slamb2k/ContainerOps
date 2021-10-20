@@ -67,6 +67,9 @@ stages:
               azureSubscription: 'Slamb DevTest AIRS(a45470cd-ca99-48f2-87be-de4b3bdffe8b)'
               appType: 'webAppContainer'
               WebAppName: 'ContainerOpsWebApp'
+              DockerNamespace: '$(containerRegistry)'
+              DockerRepository: '$(imageRepository)'
+              DockerImageTag: '$(tag)'
 
 
 
