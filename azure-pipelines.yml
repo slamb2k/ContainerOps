@@ -14,8 +14,8 @@ variables:
   dockerRegistryServiceConnection: '063b33df-431e-4e82-807c-905e5e2f0e0e'
   imageRepository: 'containerops'
   containerRegistry: 'slambcontainerregistry.azurecr.io'
-  dockerfilePath: 'foobar.azurecr.io/hello-world' #'**/Dockerfile'
-  tag: 'v1' #'$(Build.BuildId)'
+  dockerfilePath: '**/Dockerfile'
+  tag: $(Build.BuildId)'
   imagePullSecret: 'slambcontainerregistry8ba4-auth'
 
   # Agent VM image name
@@ -38,7 +38,7 @@ stages:
       inputs:
         command: buildAndPush
         repository: $(imageRepository)
-        #dockerfile: $(dockerfilePath)
+        dockerfile: $(dockerfilePath)
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
