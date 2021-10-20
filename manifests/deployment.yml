@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: containerops 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: containerops
+  template:
+    metadata:
+      labels:
+        app: containerops 
+    spec:
+      containers:
+        - name: containerops 
+          image: slambcontainerregistry.azurecr.io/containerops
+          ports:
+          - containerPort: 80
