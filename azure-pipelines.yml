@@ -83,7 +83,7 @@ stages:
     displayName: Deploy
     pool:
       vmImage: $(vmImageName)
-    environment: 'slamb2kContainerOps-1061.default'
+    environment: 'slamb2kContainerOps-k8s.default'
     strategy:
       runOnce:
         deploy:
@@ -113,7 +113,7 @@ stages:
     pool:
       vmImage: $(vmImageName)
 
-    environment: 'slamb2kContainerOps-1061.$(k8sNamespaceForPR)'
+    environment: 'slamb2kContainerOps-k8s.$(k8sNamespaceForPR)'
     strategy:
       runOnce:
         deploy:
