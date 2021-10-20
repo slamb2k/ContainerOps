@@ -14,7 +14,7 @@ variables:
   dockerRegistryServiceConnection: '62e0cf06-359e-4928-957e-8579b120bfea'
   imageRepository: 'demoimage'
   containerRegistry: 'slambcontainerregistry.azurecr.io'
-  dockerfilePath: '**/Dockerfile'
+  dockerfilePath: 'foobar.azurecr.io/hello:world'
   tag: '$(Build.BuildId)'
   imagePullSecret: 'slambcontainerregistry1622efb8-auth'
 
