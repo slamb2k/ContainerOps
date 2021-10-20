@@ -17,3 +17,9 @@ spec:
           image: slambcontainerregistry.azurecr.io/containerops
           ports:
           - containerPort: 80
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 3000
+            initialDelaySeconds: 300
+            periodSeconds: 30
