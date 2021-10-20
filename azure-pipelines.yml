@@ -75,7 +75,7 @@ stages:
 
 - stage: ProdStage
   displayName: Prod stage
-  dependsOn: DeployTest
+  dependsOn: TestStage
 
   jobs:
   - deployment: Deploy
