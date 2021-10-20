@@ -46,9 +46,33 @@ stages:
     - upload: manifests
       artifact: manifests
 
-- stage: Deploy
-  displayName: Deploy stage
+- stage: DeployTest
+  displayName: Deploy Test stage
   dependsOn: Build
+
+  jobs:
+  - deployment: Deploy
+    condition: and(succeeded(), not(startsWith(variables['Build.SourceBranch'], 'refs/pull/')))
+    displayName: Deploy
+    pool:
+      vmImage: $(vmImageName)
+    environment: 'slamb2kContainerOps-1061.default'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: AzureRmWebAppDeployment@4
+            inputs:
+              ConnectionType: 'AzureRM'
+              azureSubscription: 'Slamb DevTest AIRS(a45470cd-ca99-48f2-87be-de4b3bdffe8b)'
+              appType: 'webAppContainer'
+              WebAppName: 'ContainerOpsWebApp'
+
+
+
+- stage: DeployProd
+  displayName: Deploy Prod stage
+  dependsOn: DeployTest
 
   jobs:
   - deployment: Deploy
