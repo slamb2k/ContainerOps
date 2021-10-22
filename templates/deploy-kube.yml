@@ -9,16 +9,15 @@ parameters:
   type: string
 - name: imagePullSecret
   type: string
-
-variables:
-
-  tag: '$(Build.BuildId)'
-
-  # Agent VM image name
-  vmImageName: 'ubuntu-latest'
-
-  # Name of the new namespace being created to deploy the PR changes.
-  k8sNamespaceForPR: 'review-app-$(System.PullRequest.PullRequestId)'
+- name: tag
+  type: string
+  default: '$(Build.BuildId)'
+- name: vmImageName
+  type: string
+  default: 'ubuntu-latest'
+- name: k8sNamespaceForPR
+  type: string  
+  default: 'review-app-$(System.PullRequest.PullRequestId)'
 
 jobs:
 - deployment: Deploy
