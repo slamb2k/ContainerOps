@@ -1,14 +1,19 @@
 parameters:
 - name: dockerRegistryServiceConnection
   type: string
+  default: ''
 - name: imageRepository
   type: string
+  default: ''  
 - name: containerRegistry
   type: string
+  default: ''  
 - name: dockerfilePath
   type: string
+  default: ''  
 - name: imagePullSecret
   type: string
+  default: ''  
 - name: tag
   type: string
   default: '$(Build.BuildId)'
