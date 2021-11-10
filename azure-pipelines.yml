@@ -9,7 +9,21 @@ resources:
 - repo: self
 
 variables:
-- template: variables/build.yml  # Template reference
+  # Container registry service connection established during pipeline creation
+  webAppNameBase: 'ContainerOpsWebApp'
+  webAppServiceConnection: '063b33df-431e-4e82-807c-905e5e2f0e0e'
+  dockerRegistryServiceConnection: '063b33df-431e-4e82-807c-905e5e2f0e0e'
+  containerRegistry: 'slambcontainerregistry.azurecr.io'
+  imageRepository: 'containerops'  
+  dockerfilePath: '**/Dockerfile'
+  tag: '$(Build.BuildId)'
+  imagePullSecret: 'slambcontainerregistry8ba4-auth'
+
+  # Agent VM image name
+  vmImageName: 'ubuntu-latest'
+
+  # Name of the new namespace being created to deploy the PR changes.
+  k8sNamespaceForPR: 'review-app-$(System.PullRequest.PullRequestId)'
 
 stages:
 - stage: BuildStage
