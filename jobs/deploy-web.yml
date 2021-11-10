@@ -34,9 +34,9 @@ jobs:
     vmImage: ${{ parameters.vmImageName }}
   environment: ${{ parameters.environmentName }}
   strategy:
-    runOnce:
-      deploy:
-        steps:
+    blueGreen:    
+      deploy:              
+        steps:                                   
         - task: AzureRmWebAppDeployment@4
           inputs:
             ConnectionType: 'AzureRM'
@@ -46,3 +46,30 @@ jobs:
             DockerNamespace: '${{ parameters.containerRegistry }}'
             DockerRepository: '${{ parameters.imageRepository }}'
             DockerImageTag: '${{ parameters.tag }}'
+            DeployToSlotOrASEFlag: 'true'
+            SlotName: 'Staging'                      # deploy to green
+      routeTraffic:
+        delay: 60m
+        steps:
+        - task: AzureAppServiceManage@0
+          inputs:
+            Action: 'Swap Slots'                                    # swap green with blue
+            WebAppName: 'musicCarnivalWeb'
+            sourceSlot: $(environment.staging)
+            destinationSlot: $(environment.prod)
+      postRouteTaffic:
+        pool: server
+        steps:          
+        - script: echo monitor app health        
+      on:
+        failure:
+          steps:
+          - task: AzureAppServiceManage@0
+            inputs:
+              Action: 'Swap Slots'
+              WebAppName: 'musicCarnivalWeb'
+              sourceSlot: $(environment.prod)
+              destinationSlot: $(environment.staging)    
+        success:
+          steps:
+          - script: echo checks passed...
