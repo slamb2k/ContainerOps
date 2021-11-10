@@ -28,7 +28,7 @@ stages:
   dependsOn: BuildStage
 
   variables:
-    environmentName: '${{ variables.webAppNameBase }}-Test'
+    deployEnvironmentName: '${{ variables.webAppNameBase }}-Test'
 
   jobs:
   - template: jobs/deploy-web.yml  # Template reference
@@ -39,14 +39,14 @@ stages:
       imageRepository: '$(imageRepository)'
       tag: '$(tag)'
       webAppName: '$(environmentName)'
-      environmentName: '$(environmentName)'
+      environmentName: '$(deployEnvironmentName)'
 
 - stage: LoadTestStage
   displayName: Load test deployment
   dependsOn: TestStage
 
   variables:
-    environmentName: '${{ variables.webAppNameBase }}-LoadTest'
+    deployEnvironmentName: '${{ variables.webAppNameBase }}-LoadTest'
 
   jobs:
   - template: jobs/deploy-web.yml  # Template reference
@@ -57,14 +57,14 @@ stages:
       imageRepository: '$(imageRepository)'
       tag: '$(tag)'
       webAppName: '$(environmentName)'
-      environmentName: '$(environmentName)'
+      environmentName: '$(deployEnvironmentName)'
 
 - stage: UATStage
   displayName: UAT deployment
   dependsOn: TestStage
 
   variables:
-    environmentName: '${{ variables.webAppNameBase }}-UAT'
+    deployEnvironmentName: '${{ variables.webAppNameBase }}-UAT'
 
   jobs:
   - template: jobs/deploy-web.yml  # Template reference
@@ -75,14 +75,14 @@ stages:
       imageRepository: '$(imageRepository)'
       tag: '$(tag)'
       webAppName: '$(environmentName)'
-      environmentName: '$(environmentName)'      
+      environmentName: '$(deployEnvironmentName)'      
 
 - stage: ProdStage
   displayName: Prod deployment
   dependsOn: LoadTestStage
 
   variables:
-    environmentName: '${{ variables.webAppNameBase }}-Prod'
+    deployEnvironmentName: '${{ variables.webAppNameBase }}-Prod'
 
   jobs:
   - template: jobs/deploy-web.yml  # Template reference
@@ -93,4 +93,4 @@ stages:
       imageRepository: '$(imageRepository)'
       tag: '$(tag)'
       webAppName: '$(environmentName)'
-      environmentName: '$(environmentName)'     
+      environmentName: '$(deployEnvironmentName)'     
