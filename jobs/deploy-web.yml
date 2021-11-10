@@ -31,8 +31,8 @@ jobs:
   condition: and(succeeded(), not(startsWith(variables['Build.SourceBranch'], 'refs/pull/')))
   displayName: Deploy
   pool:
-    vmImage: ${{ vmImageName }}
-  environment: ${{ environmentName }}
+    vmImage: ${{ parameters.vmImageName }}
+  environment: ${{ parameters.environmentName }}
   strategy:
     runOnce:
       deploy:
@@ -40,9 +40,9 @@ jobs:
         - task: AzureRmWebAppDeployment@4
           inputs:
             ConnectionType: 'AzureRM'
-            azureSubscription: '${{ webAppServiceConnection }}'
+            azureSubscription: '${{ parameters.webAppServiceConnection }}'
             appType: 'webAppContainer'
-            WebAppName: '${{ webAppName }}'
-            DockerNamespace: '${{ containerRegistry }}'
-            DockerRepository: '${{ imageRepository }}'
-            DockerImageTag: '${{ tag }}'
+            WebAppName: '${{ parameters.webAppName }}'
+            DockerNamespace: '${{ parameters.containerRegistry }}'
+            DockerRepository: '${{ parameters.imageRepository }}'
+            DockerImageTag: '${{ parameters.tag }}'
