@@ -3,7 +3,7 @@
 variables:
   # Container registry service connection established during pipeline creation
   webAppNameBase: 'ContainerOpsWebApp'
-  webAppServiceConnection: '063b33df-431e-4e82-807c-905e5e2f0e0e'
+  webAppServiceConnection: 'SilambAIRSConnection'
   dockerRegistryServiceConnection: '063b33df-431e-4e82-807c-905e5e2f0e0e'
   containerRegistry: 'slambcontainerregistry.azurecr.io'
   imageRepository: 'containerops'  
@@ -16,3 +16,5 @@ variables:
 
   # Name of the new namespace being created to deploy the PR changes.
   k8sNamespaceForPR: 'review-app-$(System.PullRequest.PullRequestId)'
+
+  
