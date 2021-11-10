@@ -11,7 +11,7 @@ resources:
 variables:
   # Container registry service connection established during pipeline creation
   webAppNameBase: 'ContainerOpsWebApp'
-  webAppServiceConnection: 'a45470cd-ca99-48f2-87be-de4b3bdffe8b'
+  webAppServiceConnection: 'SilambAIRSConnection'
   dockerRegistryServiceConnection: '063b33df-431e-4e82-807c-905e5e2f0e0e'
   containerRegistry: 'slambcontainerregistry.azurecr.io'
   imageRepository: 'containerops'  
