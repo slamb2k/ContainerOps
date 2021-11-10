@@ -1,0 +1,48 @@
+# File: jobs/deploy-web.yml
+
+parameters:
+- name: deploymentName
+  type: string
+  default: ''
+- name: webAppServiceConnection
+  type: string
+  default: ''
+- name: containerRegistry
+  type: string
+  default: ''  
+- name: imageRepository
+  type: string
+  default: ''    
+- name: tag
+  type: string
+  default: '$(Build.BuildId)'
+- name: webAppName
+  type: string
+  default: ''    
+- name: vmImageName
+  type: string
+  default: 'ubuntu-latest'
+- name: environmentName
+  type: string  
+  default: ''
+
+jobs:
+- deployment: Deploy
+  condition: and(succeeded(), not(startsWith(variables['Build.SourceBranch'], 'refs/pull/')))
+  displayName: Deploy
+  pool:
+    vmImage: $(vmImageName)
+  environment: $(environmentName)
+  strategy:
+    runOnce:
+      deploy:
+        steps:
+        - task: AzureRmWebAppDeployment@4
+          inputs:
+            ConnectionType: 'AzureRM'
+            azureSubscription: '$(webAppServiceConnection)'
+            appType: 'webAppContainer'
+            WebAppName: $('webAppName)'
+            DockerNamespace: '$(containerRegistry)'
+            DockerRepository: '$(imageRepository)'
+            DockerImageTag: '$(tag)'

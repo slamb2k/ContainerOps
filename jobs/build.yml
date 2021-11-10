@@ -1,0 +1,37 @@
+# File: jobs/build.yml
+
+parameters:
+- name: dockerfilePath
+  type: string
+  default: ''  
+- name: dockerRegistryServiceConnection
+  type: string
+  default: ''
+- name: imageRepository
+  type: string
+  default: ''    
+- name: tag
+  type: string
+  default: '$(Build.BuildId)'
+- name: vmImageName
+  type: string
+  default: 'ubuntu-latest'
+
+jobs:
+- job: Build
+  displayName: Build
+  pool:
+    vmImage: $(vmImageName)
+  steps:
+  - task: Docker@2
+    displayName: Build and push an image to container registry
+    inputs:
+      command: buildAndPush
+      repository: $(imageRepository)
+      dockerfile: $(dockerfilePath)
+      containerRegistry: $(dockerRegistryServiceConnection)
+      tags: |
+        $(tag)
+
+  - upload: manifests
+    artifact: manifests
