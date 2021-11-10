@@ -23,7 +23,7 @@ parameters:
   type: string
   default: 'ubuntu-latest'
 - name: environmentName
-  type: environment  
+  type: string  
   default: ''
 
 jobs:
