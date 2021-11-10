@@ -42,7 +42,7 @@ stages:
   dependsOn: BuildStage
 
   variables:
-    deployEnvironmentName: '${{ variables.webAppNameBase }}-Test'
+    deployEnvironmentName: '$(webAppNameBase)-Test'
 
   jobs:
   - template: jobs/deploy-web.yml  # Template reference
@@ -60,7 +60,7 @@ stages:
   dependsOn: TestStage
 
   variables:
-    deployEnvironmentName: '${{ variables.webAppNameBase }}-LoadTest'
+    deployEnvironmentName: '$(webAppNameBase)-LoadTest'
 
   jobs:
   - template: jobs/deploy-web.yml  # Template reference
@@ -78,7 +78,7 @@ stages:
   dependsOn: TestStage
 
   variables:
-    deployEnvironmentName: '${{ variables.webAppNameBase }}-UAT'
+    deployEnvironmentName: '$(webAppNameBase)-UAT'
 
   jobs:
   - template: jobs/deploy-web.yml  # Template reference
@@ -96,7 +96,7 @@ stages:
   dependsOn: LoadTestStage
 
   variables:
-    deployEnvironmentName: '${{ variables.webAppNameBase }}-Prod'
+    deployEnvironmentName: '$(webAppNameBase)-Prod'
 
   jobs:
   - template: jobs/deploy-web.yml  # Template reference
