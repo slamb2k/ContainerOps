@@ -53,7 +53,7 @@ stages:
       imageRepository: '$(imageRepository)'
       tag: '$(tag)'
       webAppName: '$(environmentName)'
-      environmentName: '$(deployEnvironmentName)'
+      environmentName: '${{ variables.deployEnvironmentName }}'
 
 - stage: LoadTestStage
   displayName: Load test deployment
@@ -71,7 +71,7 @@ stages:
       imageRepository: '$(imageRepository)'
       tag: '$(tag)'
       webAppName: '$(environmentName)'
-      environmentName: '$(deployEnvironmentName)'
+      environmentName: '${{ variables.deployEnvironmentName }}'
 
 - stage: UATStage
   displayName: UAT deployment
@@ -89,7 +89,7 @@ stages:
       imageRepository: '$(imageRepository)'
       tag: '$(tag)'
       webAppName: '$(environmentName)'
-      environmentName: '$(deployEnvironmentName)'      
+      environmentName: '${{ variables.deployEnvironmentName }}'      
 
 - stage: ProdStage
   displayName: Prod deployment
@@ -107,4 +107,4 @@ stages:
       imageRepository: '$(imageRepository)'
       tag: '$(tag)'
       webAppName: '$(environmentName)'
-      environmentName: '$(deployEnvironmentName)'     
+      environmentName: '${{ variables.deployEnvironmentName }}'     
