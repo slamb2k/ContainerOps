@@ -24,8 +24,8 @@ stages:
       vmImageName: '$(vmImageName)'
 
 - stage: TestStage
-  displayName: Test stage
-  dependsOn: Build
+  displayName: Test deployment
+  dependsOn: BuildStage
 
   variables:
     environmentName: '$(webAppNameBase)-Test'
@@ -42,8 +42,8 @@ stages:
       environmentName: '$(environmentName)'
 
 - stage: LoadTestStage
-  displayName: Test stage
-  dependsOn: Build
+  displayName: Load test deployment
+  dependsOn: TestStage
 
   variables:
     environmentName: '$(webAppNameBase)-LoadTest'
@@ -60,8 +60,8 @@ stages:
       environmentName: '$(environmentName)'
 
 - stage: UATStage
-  displayName: Test stage
-  dependsOn: Build
+  displayName: UAT deployment
+  dependsOn: TestStage
 
   variables:
     environmentName: '$(webAppNameBase)-UAT'
@@ -78,8 +78,8 @@ stages:
       environmentName: '$(environmentName)'      
 
 - stage: ProdStage
-  displayName: Test stage
-  dependsOn: Build
+  displayName: Prod deployment
+  dependsOn: LoadTestStage
 
   variables:
     environmentName: '$(webAppNameBase)-Prod'
