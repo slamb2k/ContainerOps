@@ -21,17 +21,17 @@ jobs:
 - job: Build
   displayName: Build
   pool:
-    vmImage: $(vmImageName)
+    vmImage: ${{ parameters.vmImageName }}
   steps:
   - task: Docker@2
     displayName: Build and push an image to container registry
     inputs:
       command: buildAndPush
-      repository: $(imageRepository)
-      dockerfile: $(dockerfilePath)
-      containerRegistry: $(dockerRegistryServiceConnection)
+      repository: ${{ parameters.imageRepository }}
+      dockerfile: ${{ parameters.dockerfilePath }}
+      containerRegistry: ${{ parameters.dockerRegistryServiceConnection }}
       tags: |
-        $(tag)
+        ${{ parameters.tag }}
 
   - upload: manifests
     artifact: manifests
