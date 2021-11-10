@@ -27,9 +27,6 @@ stages:
   displayName: Test deployment
   dependsOn: BuildStage
 
-  variables:
-    environmentName: '$(webAppNameBase)-Test'
-
   jobs:
   - template: jobs/deploy-web.yml  # Template reference
     parameters:
@@ -38,16 +35,13 @@ stages:
       containerRegistry: '$(containerRegistry)'
       imageRepository: '$(imageRepository)'
       tag: '$(tag)'
-      webAppName: '$(environmentName)'
-      environmentName: '$(environmentName)'
+      webAppName: '$(webAppNameBase)-Test'
+      environmentName: '$(webAppNameBase)-Test'
 
 - stage: LoadTestStage
   displayName: Load test deployment
   dependsOn: TestStage
 
-  variables:
-    environmentName: '$(webAppNameBase)-LoadTest'
-
   jobs:
   - template: jobs/deploy-web.yml  # Template reference
     parameters:
@@ -56,16 +50,13 @@ stages:
       containerRegistry: '$(containerRegistry)'
       imageRepository: '$(imageRepository)'
       tag: '$(tag)'
-      webAppName: '$(environmentName)'
-      environmentName: '$(environmentName)'
+      webAppName: '$(webAppNameBase)-LoadTest'
+      environmentName: '$(webAppNameBase)-LoadTest'
 
 - stage: UATStage
   displayName: UAT deployment
   dependsOn: TestStage
 
-  variables:
-    environmentName: '$(webAppNameBase)-UAT'
-
   jobs:
   - template: jobs/deploy-web.yml  # Template reference
     parameters:
@@ -74,15 +65,12 @@ stages:
       containerRegistry: '$(containerRegistry)'
       imageRepository: '$(imageRepository)'
       tag: '$(tag)'
-      webAppName: '$(environmentName)'
-      environmentName: '$(environmentName)'      
+      webAppName: '$(webAppNameBase)-UAT'
+      environmentName: '$(webAppNameBase)-UAT'      
 
 - stage: ProdStage
   displayName: Prod deployment
   dependsOn: LoadTestStage
-
-  variables:
-    environmentName: '$(webAppNameBase)-Prod'
 
   jobs:
   - template: jobs/deploy-web.yml  # Template reference
@@ -92,5 +80,5 @@ stages:
       containerRegistry: '$(containerRegistry)'
       imageRepository: '$(imageRepository)'
       tag: '$(tag)'
-      webAppName: '$(environmentName)'
-      environmentName: '$(environmentName)'     
+      webAppName: '$(webAppNameBase)-Prod'
+      environmentName: '$(webAppNameBase)-Prod'     
